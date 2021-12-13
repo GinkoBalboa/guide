@@ -38,3 +38,27 @@ $ source ~/.bashrc
 If you went to experiment with changing `.bashrc` on your own it is good to know
 how can you restore the default one. There exist backup copies of `.bashrc`, 
 `.profile` etc. in `/etc/skel/`. One could simply do it by overwitting from there.
+
+## Useful git aliases
+
+When using git on regular basis one usualy has the need to have a more clearer view
+of the git tree. The `git log` command has a lot of details and doesn't show much
+of the connection between branches and commits in history. This is why I use the 
+following settings for my git. 
+
+On Linux machines the git configuration file is at the home folder `~/.gitconfig`.
+This is the settings that I use:
+
+``` ini
+[alias]
+    tracked = ls-tree -r master --name-only
+    ignored = ls-files . --ignored --exclude-standard --others
+    tree = log --graph --abbrev-commit --decorate --date=relative --all -20 --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
+    bigtree = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset%n' --abbrev-commit --date=relative --branches	
+[user]
+    name = Ginko Balboa
+    email = ginkobalboa3@gmail.com
+[core]
+    editor = gedit -s
+```
+
