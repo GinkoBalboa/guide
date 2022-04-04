@@ -26,6 +26,29 @@ given above).
 export PS1="\u@\h \[\e[32m\]\w \[\e[91m\]\$(parse_git_branch)\[\e[00m\]$ "
 ```
 
+Under ubuntu you can replace the lines for setting the PS1 and addint the git parsing
+func
+
+```bash
+# This is the old PS1
+# if [ "$color_prompt" = yes ]; then
+#     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+# else
+#     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+# fi
+
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+if [ "$color_prompt" = yes ]; then
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\e[91m\]\$(parse_git_branch)\[\e[00m\]$ '
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$(parse_git_branch)$ '
+fi
+unset color_prompt force_color_prompt
+```
+
 After editing the `.bashrc` you can restart the terminal or run the following line
 to imediately load the new configuration:
 
